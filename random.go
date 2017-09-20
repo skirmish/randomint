@@ -8,18 +8,13 @@ import (
 	"crypto/rand"
 )
 
-type Random interface {
-	Intn(max int) int
-	Int32() int32
-}
-
 type RandomInt struct {
 	bytes  []byte
 	offset int
 	len    int
 }
 
-func NewRandomInt(bufferSize int) Random {
+func NewRandomInt(bufferSize int) *RandomInt {
 	r := &RandomInt{}
 	r.bytes = make([]byte, bufferSize*4)
 	r.offset = 0

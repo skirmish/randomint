@@ -2,6 +2,7 @@ package randomint
 
 import (
 	"testing"
+	"math/rand"
 )
 
 func TestRandom(t *testing.T) {
@@ -34,43 +35,62 @@ func TestRandomInt32(t *testing.T) {
 }
 
 func BenchmarkRandom1(b *testing.B) {
-	//b.SkipNow()
 	b.ReportAllocs()
 	r := NewRandomInt(1)
-	for i := 0; i < b.N; i++ {
+	for n := b.N; n > 0; n-- {
 		r.Intn(5000)
 	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
 }
 
 func BenchmarkRandom256(b *testing.B) {
 	//b.SkipNow()
 	b.ReportAllocs()
 	r := NewRandomInt(256)
-	for i := 0; i < b.N; i++ {
+	for n := b.N; n > 0; n-- {
 		r.Intn(5000)
 	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
 }
 
 func BenchmarkRandom8K(b *testing.B) {
 	b.ReportAllocs()
 	r := NewRandomInt(8192)
-	for i := 0; i < b.N; i++ {
+	for n := b.N; n > 0; n-- {
 		r.Intn(5000)
 	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
 }
 
 func BenchmarkRandom64K(b *testing.B) {
 	b.ReportAllocs()
 	r := NewRandomInt(256 * 256)
-	for i := 0; i < b.N; i++ {
+	for n := b.N; n > 0; n-- {
 		r.Intn(5000)
 	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
 }
 
 func BenchmarkRandom16M(b *testing.B) {
 	b.ReportAllocs()
 	r := NewRandomInt(256 * 256 * 256)
-	for i := 0; i < b.N; i++ {
+	for n := b.N; n > 0; n-- {
 		r.Intn(5000)
 	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
+}
+
+func BenchmarkStdLibRand(b *testing.B) {
+	b.ReportAllocs()
+	r := rand.New(rand.NewSource(1))
+	for n := b.N; n > 0; n-- {
+		r.Intn(5000)
+	}
+	count:=int64(b.N)*4
+	b.SetBytes(count)
 }

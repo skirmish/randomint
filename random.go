@@ -23,6 +23,7 @@ func NewRandomInt(bufferSize int) *RandomInt {
 	return r
 }
 
+// Intn returns an int32 random number.
 func (r *RandomInt) Int32() int32 {
 	var value int32
 	// End of buffer?
@@ -37,6 +38,7 @@ func (r *RandomInt) Int32() int32 {
 	return value
 }
 
+// Intn returns an int random number in [0,max).
 func (r *RandomInt) Intn(max int) int {
 	if max == 0 {
 		return 0
